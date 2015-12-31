@@ -55,7 +55,7 @@
         }
     }
 
-    function get_difference($time, $mode = "none"){
+    function get_difference($time, $mode = "none", $mode2 = "check"){
         $now = new DateTime('now');
         $diff = MyDateInterval::createFromDateInterval($now->diff($time, true));
         $time = array($diff->formatWithoutZeroes('%y'), $diff->formatWithoutZeroes('%m'), $diff->formatWithoutZeroes('%d'), $diff->formatWithoutZeroes('%h'), $diff->formatWithoutZeroes('%i'), $diff->formatWithoutZeroes('%s'));
@@ -101,12 +101,21 @@
 
             for ($count = 5; $count >= $needtogo; $count--):
                 if($count == 5)
-                    if($time[$count] == 1)
-                        $returnstring = $time[$count] . " " . $names[$count] . " ago.";
-                    else if($time[$count] == 0)
-                        $returnstring = "0 " . $name[$count] . " ago.";
-                    else
-                        $returnstring = $time[$count] . " " . $name[$count] . " ago.";
+					if($mode2 == "check") {
+						if($time[$count] == 1)
+							$returnstring = $time[$count] . " " . $names[$count] . " ago.";
+						else if($time[$count] == 0)
+							$returnstring = "0 " . $name[$count] . " ago.";
+						else
+							$returnstring = $time[$count] . " " . $name[$count] . " ago.";
+					} else {
+						if($time[$count] == 1)
+							$returnstring = $time[$count] . " " . $names[$count] . ".";
+						else if($time[$count] == 0)
+							$returnstring = "0 " . $name[$count] . ".";
+						else
+							$returnstring = $time[$count] . " " . $name[$count] . ".";
+					}
                 else
                     if($time[$count] == 1)
                         $returnstring = $time[$count]." ".$names[$count].", ".$returnstring;
