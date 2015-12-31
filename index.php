@@ -83,7 +83,7 @@
 				echo $userstatus;
 
 		echo '</br></br> It\'s been ' . $status . ' for: ';
-		get_difference($lastonline);
+		get_difference($lastonline, false, true);
 		echo '</br> Last checked: ';
 		get_difference($lastcheck);
 		echo '</br> These numbers are up to date as of ';
