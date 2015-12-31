@@ -55,7 +55,7 @@
         }
     }
 
-    function get_difference($time, $mode = "none", $mode2 = "check"){
+    function get_difference($time, $mode = false, $mode2 = false){
         $now = new DateTime('now');
         $diff = MyDateInterval::createFromDateInterval($now->diff($time, true));
         $time = array($diff->formatWithoutZeroes('%y'), $diff->formatWithoutZeroes('%m'), $diff->formatWithoutZeroes('%d'), $diff->formatWithoutZeroes('%h'), $diff->formatWithoutZeroes('%i'), $diff->formatWithoutZeroes('%s'));
@@ -79,7 +79,7 @@
             if($time[0] != 0)
                 $needtogo = 0;
 
-            if($mode != "none"){
+            if($mode){
                 switch($mode) {
                     case "s":
                         return ''.$time[5];
@@ -101,7 +101,7 @@
 
             for ($count = 5; $count >= $needtogo; $count--):
                 if($count == 5)
-					if($mode2 == "check") {
+					if(!$mode2) {
 						if($time[$count] == 1)
 							$returnstring = $time[$count] . " " . $names[$count] . " ago.";
 						else if($time[$count] == 0)
